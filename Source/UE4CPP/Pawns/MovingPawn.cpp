@@ -6,16 +6,26 @@ AMovingPawn::AMovingPawn(const class FObjectInitializer& PCIP) : Super(PCIP) {
 
 	RootComponent = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("RootComponent"));
 
-	UStaticMeshComponent* meshcomponent = PCIP.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("RootObject"));
-	meshcomponent->AttachTo(RootComponent);
+	RootObject = PCIP.CreateDefaultSubobject<UStaticMeshComponent>(this, TEXT("RootObject"));
+	RootObject->AttachTo(RootComponent);
+
+	// SET DEFAULT VARS 
+	MovementSpeed = 100;
 }
 
 void AMovingPawn::BeginPlay() {
 	Super::BeginPlay();
+
+	SpawnLocation = this->GetActorLocation();
 }
 
 void AMovingPawn::Tick( float DeltaTime ) {
 	Super::Tick( DeltaTime );
+
+	FVector vector = this->GetActorLocation();
+	vector.Z += 1;
+
+	this->SetActorLocation(vector, true);
 }
 
 void AMovingPawn::SetupPlayerInputComponent(class UInputComponent* InputComponent) {

@@ -11,6 +11,10 @@ class UE4CPP_API AMovingPawn : public APawn
 	UPROPERTY(Category = Move, EditAnywhere)
 	float MovementSpeed;
 
+	UPROPERTY(Category = Collision, VisibleDefaultsOnly, BlueprintReadOnly)
+	UStaticMeshComponent* RootObject;
+
+	FVector SpawnLocation;
 
 public:
 	virtual void BeginPlay() override;
